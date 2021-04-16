@@ -11,7 +11,7 @@
             <div class="relative w-full rounded-full h-3 bg-gray-900">
                 <div class="absolute h-40 inset-x-2 bottom-1.5 overflow-hidden">
                     <div
-                        class="h-40 bg-white rounded-t-sm transition-transform duration-1000 ease-linear transform {isReleased
+                        class="h-40 bg-white rounded-t-sm transition-transform transform-gpu duration-1000 ease-linear {isReleased
                             ? 'translate-y-20'
                             : ''}"
                     />

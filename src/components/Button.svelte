@@ -2,13 +2,6 @@
     let isHover = false;
     let isPress = false;
 
-    const hoverFn = (v: boolean) => () => {
-        isHover = v;
-    };
-    const pressFn = (v: boolean) => () => {
-        isPress = v;
-    };
-
     let translateSize = "-translate-y-2";
     $: translateSize = isHover
         ? isPress && isHover
