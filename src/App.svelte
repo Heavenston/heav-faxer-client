@@ -1,6 +1,6 @@
 <script lang="ts">
     import Button from "./components/Button.svelte";
-    let isReleased = true;
+    let isReleased = false;
 </script>
 
 <div
@@ -8,12 +8,14 @@
 >
     <div class="px-10 py-7 min-w-96 bg-gray-700 shadow-lg rounded">
         <div>
-            <div class="relative w-full rounded-full h-3 bg-gray-900">
-                <div class="absolute h-40 inset-x-2 bottom-1.5 overflow-hidden">
+            <div
+                class="relative w-full rounded-full h-3 bg-gray-900 shadow-inner"
+            >
+                <div class="absolute h-40 inset-x-2 bottom-0 overflow-hidden">
                     <div
                         class="h-40 bg-white rounded-t-sm transition-transform transform duration-1000 ease-linear {isReleased
-                            ? 'translate-y-20'
-                            : ''}"
+                            ? ''
+                            : 'translate-y-40'}"
                     />
                 </div>
             </div>
