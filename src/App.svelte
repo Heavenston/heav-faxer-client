@@ -8,7 +8,7 @@
 <div
     class="absolute inset-0 flex justify-center items-center bg-gray-800 text-white"
 >
-    <div class="px-10 py-7 min-w-96 bg-gray-700 shadow-lg rounded">
+    <div class="px-10 py-7 min-w-96 bg-gray-700 shadow-xl rounded">
         <div>
             <div
                 class="relative w-full rounded-full h-3 bg-gray-900 shadow-inner"
