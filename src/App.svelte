@@ -1,6 +1,8 @@
 <script lang="ts">
     import Button from "./components/Button.svelte";
-    let isReleased = true;
+    import Paper from "./components/Paper.svelte";
+    let fileform: HTMLInputElement | null = null;
+    let files = "";
 </script>
 
 <div
@@ -11,33 +13,33 @@
             <div
                 class="relative w-full rounded-full h-3 bg-gray-900 shadow-inner"
             >
-                <div class="absolute h-40 inset-x-2 bottom-0 overflow-hidden">
-                    <div
-                        class="h-40 bg-white text-black p-2 px-3 rounded-t-sm
-                        transition-transform transform duration-1000 ease-linear
-                        select-none relative font-typewriter
-                        {isReleased
-                            ? ''
-                            : 'translate-y-44'}"
-                    >
-                        Click or drag a file to upload
-                        <input
-                            type="file"
-                            name="files[]"
-                            class="absolute inset-0 opacity-0 cursor-pointer"
-                        />
-                    </div>
-                </div>
+                <Paper show={files === ""} delay={300}>
+                    Click or drag a file to upload
+                    <input
+                        type="file"
+                        name="files[]"
+                        class="absolute inset-0 opacity-0 cursor-pointer"
+                        bind:value={files}
+                        bind:this={fileform}
+                    />
+                </Paper>
+                <Paper
+                    show={files !== ""}
+                    extendClass="break-words"
+                    delay={300}
+                >
+                    Selected file: {files.substr(12)}
+                </Paper>
             </div>
         </div>
         <div class="pt-10">
             <Button
+                disabled={files === ""}
                 on:click={() => {
-                    isReleased = !isReleased;
-                }}
+                    if (fileform !== null) fileform.value = "";
+                    files = "";
+                }}>Reset file</Button
             >
-                Hi
-            </Button>
         </div>
     </div>
 </div>
