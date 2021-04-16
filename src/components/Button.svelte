@@ -9,8 +9,12 @@
         isPress = v;
     };
 
-    let translateSize = "2";
-    $: translateSize = isHover ? (isPress && isHover ? "0" : "0.5") : "1";
+    let translateSize = "-translate-y-2";
+    $: translateSize = isHover
+        ? isPress && isHover
+            ? "-translate-y-0"
+            : "-translate-y-0.5"
+        : "-translate-y-1";
 </script>
 
 <button
@@ -29,9 +33,7 @@
         isPress = false;
     }}
 >
-    <div
-        class="px-4 py-1 transform -translate-y-{translateSize} bg-gray-800 rounded"
-    >
+    <div class="px-4 py-1 transform {translateSize} bg-gray-800 rounded">
         <slot />
     </div>
 </button>
