@@ -8,4 +8,14 @@ export default defineConfig({
     server: {
         port: 1234,
     },
+
+    css: {
+        postcss: {
+            plugins: [
+                require("postcss-import"),
+                require("tailwindcss"),
+                require("autoprefixer"),
+            ],
+        },
+    },
 });
