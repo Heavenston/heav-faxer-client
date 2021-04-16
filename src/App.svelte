@@ -13,14 +13,19 @@
             >
                 <div class="absolute h-40 inset-x-2 bottom-0 overflow-hidden">
                     <div
-                        class="h-40 bg-white text-black font-semibold p-2 px-3 rounded-t-sm
+                        class="h-40 bg-white text-black p-2 px-3 rounded-t-sm
                         transition-transform transform duration-1000 ease-linear
-                        cursor-pointer select-none
+                        select-none relative font-typewriter
                         {isReleased
                             ? ''
                             : 'translate-y-44'}"
                     >
                         Click or drag a file to upload
+                        <input
+                            type="file"
+                            name="files[]"
+                            class="absolute inset-0 opacity-0 cursor-pointer"
+                        />
                     </div>
                 </div>
             </div>
