@@ -1,6 +1,6 @@
 <script lang="ts">
     import Button from "./components/Button.svelte";
-    let isReleased = false;
+    let isReleased = true;
 </script>
 
 <div
@@ -13,10 +13,15 @@
             >
                 <div class="absolute h-40 inset-x-2 bottom-0 overflow-hidden">
                     <div
-                        class="h-40 bg-white rounded-t-sm transition-transform transform duration-1000 ease-linear {isReleased
+                        class="h-40 bg-white text-black font-semibold p-2 px-3 rounded-t-sm
+                        transition-transform transform duration-1000 ease-linear
+                        cursor-pointer select-none
+                        {isReleased
                             ? ''
-                            : 'translate-y-40'}"
-                    />
+                            : 'translate-y-44'}"
+                    >
+                        Click or drag a file to upload
+                    </div>
                 </div>
             </div>
         </div>
