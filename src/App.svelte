@@ -2,13 +2,5 @@
 </script>
 
 <main>
-    <div class="container mx-auto px-10">
-        <h1>Hello Svelte!</h1>
-    </div>
+    <h1>Hello Svelte!</h1>
 </main>
-
-<style>
-    @tailwind base;
-    @tailwind components;
-    @tailwind utilities;
-</style>
