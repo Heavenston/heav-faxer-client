@@ -35,7 +35,7 @@
     }}
 >
     <div
-        class="px-4 py-1 transform-gpu {translateSize} bg-gray-800 rounded transition-transform duration-100 ease-linear"
+        class="px-4 py-1 transform-gpu {translateSize} bg-gray-800 rounded transition-transform duration-75 ease-linear"
     >
         <slot />
     </div>
