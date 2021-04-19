@@ -11,7 +11,7 @@
     <div
         class="h-40 bg-white text-black p-2 px-3 rounded-t-sm
                             transition-transform transform ease-in-out duration-300
-                            select-none relative font-typewriter
+                            select-none relative font-semibold
                             {extendClass}
                             {show
             ? ''

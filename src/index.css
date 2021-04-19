@@ -1,8 +1,3 @@
-@font-face {
-    font-family: "Another Typewriter";
-    src: url("/atwriter.ttf");
-}
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
