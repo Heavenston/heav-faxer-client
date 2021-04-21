@@ -2,10 +2,13 @@
     import Button from "./components/Button.svelte";
     import SegDisp from "./components/SegmentedDisplay.svelte";
     import { fly } from "svelte/transition";
+    let windowHeight: number;
     let fileform: HTMLInputElement | null = null;
     let files = "";
     let uploadState: null | number = null;
 </script>
+
+<svelte:window bind:innerHeight={windowHeight} />
 
 <div
     class="absolute inset-0 flex justify-center items-center bg-gray-800 text-white"
@@ -27,7 +30,7 @@
                     >
                         <div
                             transition:fly={{
-                                y: -window.innerHeight / 2,
+                                y: -windowHeight / 2,
                                 duration: 500,
                             }}
                             class="bg-white text-black rounded-sm
