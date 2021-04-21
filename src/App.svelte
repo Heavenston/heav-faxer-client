@@ -1,8 +1,9 @@
 <script lang="ts">
     import Button from "./components/Button.svelte";
-    import Paper from "./components/Paper.svelte";
+    import { fly } from "svelte/transition";
     let fileform: HTMLInputElement | null = null;
     let files = "";
+    let fileHistory = [];
 </script>
 
 <div
@@ -13,33 +14,51 @@
             <div
                 class="relative w-full rounded-full h-3 bg-gray-900 shadow-inner"
             >
-                <Paper show={files === ""} delay={300}>
-                    Click or drag a file to upload
-                    <input
-                        type="file"
-                        name="files[]"
-                        class="absolute inset-0 opacity-0 cursor-pointer"
-                        bind:value={files}
-                        bind:this={fileform}
-                    />
-                </Paper>
-                <Paper
-                    show={files !== ""}
-                    extendClass="break-words"
-                    delay={300}
-                >
-                    Selected file: {files.substr(12)}
-                </Paper>
+                {#if files !== ""}
+                    {#key files}
+                        <div
+                            class="absolute inset-x-2 bottom-0 overflow-hidden duration-300"
+                        >
+                            <div
+                                transition:fly={{ y: -500, duration: 500 }}
+                                class="bg-white text-black rounded-t-sm
+                                transition-transform transform ease-in-out duration-300
+                                select-none font-semibold break-words
+                                h-80 p-2 px-3 relative -bottom-40
+                                "
+                            >
+                                Selected file: {files.substr(12)}
+                            </div>
+                        </div>
+                    {/key}
+                {/if}
             </div>
         </div>
         <div class="pt-10">
+            <input
+                type="file"
+                class="cantseetheinput"
+                bind:this={fileform}
+                bind:value={files}
+            />
             <Button
-                disabled={files === ""}
                 on:click={() => {
-                    if (fileform !== null) fileform.value = "";
-                    files = "";
-                }}>Reset file</Button
+                    fileform?.click();
+                }}
             >
+                Select file
+            </Button>
         </div>
     </div>
 </div>
+
+<style>
+    .cantseetheinput {
+        width: 0.1px;
+        height: 0.1px;
+        opacity: 0;
+        overflow: hidden;
+        position: absolute;
+        z-index: -1;
+    }
+</style>
