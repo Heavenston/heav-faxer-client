@@ -3,6 +3,8 @@
 @tailwind utilities;
 
 @font-face {
-    font-family: "DSEG7Classic-Regular";
-    src: url("/DSEG7Classic-Regular.ttf");
+    font-family: "DSEG14Classic-Regular";
+    src: url("/DSEG14Classic-Regular.ttf");
+    src: url("/DSEG14Classic-Regular.woff") format("woff"),
+        url("/DSEG14Classic-Regular.woff2") format("woff2");
 }

@@ -49,7 +49,9 @@
                     ? "Select a file"
                     : uploadState == null
                     ? "Press upload"
-                    : `${uploadState}`}
+                    : `${uploadState < 100 ? "0" : ""}${
+                          uploadState < 10 ? "0" : ""
+                      }${uploadState}%`}
             />
         </div>
         <div class="pt-7 flex">

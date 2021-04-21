@@ -11,7 +11,7 @@ module.exports = {
             },
             minWidth: t => t("spacing"),
             fontFamily: {
-                DSEG7: "DSEG7Classic-Regular",
+                DSEG14: "DSEG14Classic-Regular",
             },
             spacing: {
                 cw: "1ch",
