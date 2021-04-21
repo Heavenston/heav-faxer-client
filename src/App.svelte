@@ -33,7 +33,7 @@
         );
         ajax.addEventListener("error", () => {}, false);
         ajax.addEventListener("abort", () => {}, false);
-        ajax.open("POST", "http://api.faxer.heav.fr/upload");
+        ajax.open("POST", "https://api.faxer.heav.fr/upload");
         ajax.send(formdata);
     }
 </script>
