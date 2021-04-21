@@ -19,8 +19,8 @@
         bind:this={fileform}
         bind:value={files}
     />
-    <div>
-        <div class="mx-8 rounded-t-lg h-8 bg-gray-900 shadow-inner">
+    <div class="pt-20">
+        <div class="relative mx-8 rounded-t-lg h-8 bg-gray-900 shadow-inner">
             {#if files !== ""}
                 {#key files}
                     <div
@@ -34,12 +34,12 @@
                             class="bg-white text-black rounded-sm
                             transition-transform transform-gpu ease-linear duration-100
                             select-none font-semibold break-words
-                            h-80 p-2 px-3 relative -bottom-40
+                            h-80 p-2 px-3 relative -bottom-52
                             "
                             style={uploadState !== null
                                 ? `--tw-translate-y: calc(${
                                       uploadState / 100
-                                  } * 10rem);`
+                                  } * 7rem);`
                                 : ``}
                         >
                             Selected file: {files.substr(12)}
