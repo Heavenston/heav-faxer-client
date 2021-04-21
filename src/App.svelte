@@ -4,7 +4,7 @@
     import { fly } from "svelte/transition";
     let fileform: HTMLInputElement | null = null;
     let files = "";
-    let fileHistory = [];
+    let uploadState: null | number = null;
 </script>
 
 <div
@@ -16,7 +16,7 @@
         bind:this={fileform}
         bind:value={files}
     />
-    <div class="relative px-5 py-3 min-w-96 bg-gray-700 shadow-xl rounded">
+    <div class="relative px-5 py-3 bg-gray-700 shadow-xl rounded">
         <div
             class="absolute bottom-full inset-x-8 rounded-t-lg h-8 bg-gray-900 shadow-inner"
         >
@@ -30,7 +30,7 @@
                                 y: -window.innerHeight / 2,
                                 duration: 500,
                             }}
-                            class="bg-white text-black rounded-t-sm
+                            class="bg-white text-black rounded-sm
                             transition-transform transform ease-in-out duration-300
                             select-none font-semibold break-words
                             h-80 p-2 px-3 relative -bottom-40
@@ -44,14 +44,24 @@
         </div>
         <div class="bg-gray-800 rounded w-full px-3 py-1">
             <SegDisp
-                shape="XXXXXXXXXXXXXXXXXX"
-                content={files == "" ? "Select a file" : "Press upload"}
+                shape="XXXXXXXXXXXXXXXXXXXXXX"
+                content={files == ""
+                    ? "Select a file"
+                    : uploadState == null
+                    ? "Press upload"
+                    : `${uploadState}`}
             />
         </div>
         <div class="pt-7 flex">
-            <Button disabled={files == ""}>Upload</Button>
+            <Button
+                disabled={files == "" || uploadState !== null}
+                on:click={() => {
+                    uploadState = 0;
+                }}>Upload</Button
+            >
             <div class="flex-grow" />
             <Button
+                disabled={uploadState !== null}
                 on:click={() => {
                     fileform?.click();
                 }}

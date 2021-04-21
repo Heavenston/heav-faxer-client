@@ -4,7 +4,7 @@
 </script>
 
 <span class="relative font-DSEG7 inline-block">
-    <div class="opacity-25 select-none">
+    <div class="opacity-10 select-none">
         {shape.replaceAll("X", "8")}
     </div>
     <div class="absolute inset-0 font-semibold">
