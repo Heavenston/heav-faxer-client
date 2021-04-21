@@ -106,7 +106,7 @@
                     : ''}
                 "
             >
-                {window.location.protocol}://{window.location.host}/{finalCode}
+                {window.location.protocol}//{window.location.host}/{finalCode}
             </div>
         </div>
     </div>
