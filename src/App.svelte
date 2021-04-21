@@ -1,5 +1,6 @@
 <script lang="ts">
     import Button from "./components/Button.svelte";
+    import SegDisp from "./components/SegmentedDisplay.svelte";
     import { fly } from "svelte/transition";
     let fileform: HTMLInputElement | null = null;
     let files = "";
@@ -9,38 +10,47 @@
 <div
     class="absolute inset-0 flex justify-center items-center bg-gray-800 text-white"
 >
-    <div class="px-10 py-7 min-w-96 bg-gray-700 shadow-xl rounded">
-        <div>
-            <div
-                class="relative w-full rounded-full h-3 bg-gray-900 shadow-inner"
-            >
-                {#if files !== ""}
-                    {#key files}
+    <input
+        type="file"
+        class="cantseetheinput"
+        bind:this={fileform}
+        bind:value={files}
+    />
+    <div class="relative px-5 py-3 min-w-96 bg-gray-700 shadow-xl rounded">
+        <div
+            class="absolute bottom-full inset-x-8 rounded-t-lg h-8 bg-gray-900 shadow-inner"
+        >
+            {#if files !== ""}
+                {#key files}
+                    <div
+                        class="absolute inset-x-4 bottom-0 overflow-hidden duration-300"
+                    >
                         <div
-                            class="absolute inset-x-2 bottom-0 overflow-hidden duration-300"
+                            transition:fly={{
+                                y: -window.innerHeight / 2,
+                                duration: 500,
+                            }}
+                            class="bg-white text-black rounded-t-sm
+                            transition-transform transform ease-in-out duration-300
+                            select-none font-semibold break-words
+                            h-80 p-2 px-3 relative -bottom-40
+                            "
                         >
-                            <div
-                                transition:fly={{ y: -500, duration: 500 }}
-                                class="bg-white text-black rounded-t-sm
-                                transition-transform transform ease-in-out duration-300
-                                select-none font-semibold break-words
-                                h-80 p-2 px-3 relative -bottom-40
-                                "
-                            >
-                                Selected file: {files.substr(12)}
-                            </div>
+                            Selected file: {files.substr(12)}
                         </div>
-                    {/key}
-                {/if}
-            </div>
+                    </div>
+                {/key}
+            {/if}
         </div>
-        <div class="pt-10">
-            <input
-                type="file"
-                class="cantseetheinput"
-                bind:this={fileform}
-                bind:value={files}
+        <div class="bg-gray-800 rounded w-full px-3 py-1">
+            <SegDisp
+                shape="XXXXXXXXXXXXXXXXXX"
+                content={files == "" ? "Select a file" : "Press upload"}
             />
+        </div>
+        <div class="pt-7 flex">
+            <Button disabled={files == ""}>Upload</Button>
+            <div class="flex-grow" />
             <Button
                 on:click={() => {
                     fileform?.click();

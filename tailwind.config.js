@@ -10,6 +10,12 @@ module.exports = {
                 gray: colors.trueGray,
             },
             minWidth: t => t("spacing"),
+            fontFamily: {
+                DSEG7: "DSEG7Classic-Regular",
+            },
+            spacing: {
+                cw: "1ch",
+            },
         },
     },
     variants: {
