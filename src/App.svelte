@@ -5,10 +5,10 @@
     let windowHeight: number;
     let fileform: HTMLInputElement | null = null;
     let files: string = "";
-    let uploadedFile: string | null = null;
     let uploadState: null | number = null;
     let finalCode: null | string = null;
     function startFileUpload() {
+        finalCode = null;
         if (!fileform || !fileform.files) return;
         var formdata = new FormData();
         let file = fileform.files[0];
@@ -25,7 +25,6 @@
         ajax.addEventListener(
             "load",
             () => {
-                uploadedFile = files;
                 files = "";
                 uploadState = null;
                 finalCode = JSON.parse(ajax.response).files.file;
@@ -60,9 +59,14 @@
                         class="absolute inset-x-4 bottom-0 overflow-hidden duration-300"
                     >
                         <div
-                            transition:fly={{
+                            in:fly={{
                                 y: -windowHeight / 2,
                                 duration: 500,
+                            }}
+                            out:fly={{
+                                y: 500,
+                                opacity: 1,
+                                duration: 3000,
                             }}
                             class="bg-white text-black rounded-sm
                             transition-transform transform-gpu ease-linear duration-100
