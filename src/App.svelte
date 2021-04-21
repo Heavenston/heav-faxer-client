@@ -19,10 +19,8 @@
         bind:this={fileform}
         bind:value={files}
     />
-    <div class="relative px-5 py-3 bg-gray-700 shadow-xl rounded">
-        <div
-            class="absolute bottom-full inset-x-8 rounded-t-lg h-8 bg-gray-900 shadow-inner"
-        >
+    <div>
+        <div class="mx-8 rounded-t-lg h-8 bg-gray-900 shadow-inner">
             {#if files !== ""}
                 {#key files}
                     <div
@@ -50,40 +48,42 @@
                 {/key}
             {/if}
         </div>
-        <div class="bg-gray-800 rounded w-full px-3 py-1">
-            <SegDisp
-                shape="XXXXXXXXXXXXXXXXXXXXXX"
-                content={files == ""
-                    ? "Select a file"
-                    : uploadState == null
-                    ? "Press upload"
-                    : `${uploadState < 100 ? "0" : ""}${
-                          uploadState < 10 ? "0" : ""
-                      }${Math.trunc(uploadState)}%`}
-            />
-        </div>
-        <div class="pt-7 flex">
-            <Button
-                disabled={files == "" || uploadState !== null}
-                on:click={() => {
-                    uploadState = 0;
-                    let i = setInterval(() => {
-                        if (uploadState != null) uploadState += 1;
-                        if (uploadState && uploadState >= 100) {
-                            clearInterval(i);
-                        }
-                    }, 100);
-                }}>Upload</Button
-            >
-            <div class="flex-grow" />
-            <Button
-                disabled={uploadState !== null}
-                on:click={() => {
-                    fileform?.click();
-                }}
-            >
-                Select file
-            </Button>
+        <div class="px-5 py-3 bg-gray-700 shadow-xl rounded">
+            <div class="bg-gray-800 rounded w-full px-3 py-1">
+                <SegDisp
+                    shape="XXXXXXXXXXXXXXXXXXXXXX"
+                    content={files == ""
+                        ? "Select a file"
+                        : uploadState == null
+                        ? "Press upload"
+                        : `${uploadState < 100 ? "0" : ""}${
+                              uploadState < 10 ? "0" : ""
+                          }${Math.trunc(uploadState)}%`}
+                />
+            </div>
+            <div class="pt-7 flex">
+                <Button
+                    disabled={files == "" || uploadState !== null}
+                    on:click={() => {
+                        uploadState = 0;
+                        let i = setInterval(() => {
+                            if (uploadState != null) uploadState += 1;
+                            if (uploadState && uploadState >= 100) {
+                                clearInterval(i);
+                            }
+                        }, 100);
+                    }}>Upload</Button
+                >
+                <div class="flex-grow" />
+                <Button
+                    disabled={uploadState !== null}
+                    on:click={() => {
+                        fileform?.click();
+                    }}
+                >
+                    Select file
+                </Button>
+            </div>
         </div>
     </div>
 </div>
