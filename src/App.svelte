@@ -4,9 +4,39 @@
     import { fly } from "svelte/transition";
     let windowHeight: number;
     let fileform: HTMLInputElement | null = null;
-    let files = "";
+    let files: string = "";
+    let uploadedFile: string | null = null;
     let uploadState: null | number = null;
     let finalCode: null | string = null;
+    function startFileUpload() {
+        if (!fileform || !fileform.files) return;
+        var formdata = new FormData();
+        let file = fileform.files[0];
+        formdata.append("file", file, file.name);
+        var ajax = new XMLHttpRequest();
+        uploadState = 0;
+        ajax.upload.addEventListener(
+            "progress",
+            event => {
+                uploadState = (event.loaded / event.total) * 100;
+            },
+            false
+        );
+        ajax.addEventListener(
+            "load",
+            () => {
+                uploadedFile = files;
+                files = "";
+                uploadState = null;
+                finalCode = JSON.parse(ajax.response).files.file;
+            },
+            false
+        );
+        ajax.addEventListener("error", () => {}, false);
+        ajax.addEventListener("abort", () => {}, false);
+        ajax.open("POST", "http://api.faxer.heav.fr/upload");
+        ajax.send(formdata);
+    }
 </script>
 
 <svelte:window bind:innerHeight={windowHeight} />
@@ -68,14 +98,7 @@
                 <Button
                     disabled={files == "" || uploadState !== null}
                     on:click={() => {
-                        uploadState = 0;
-                        let i = setInterval(() => {
-                            if (uploadState != null) uploadState += 2;
-                            if (uploadState && uploadState >= 100) {
-                                clearInterval(i);
-                                finalCode = "BONJOUR";
-                            }
-                        }, 100);
+                        startFileUpload();
                     }}>Upload</Button
                 >
                 <div class="flex-grow" />
