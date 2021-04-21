@@ -1,7 +1,11 @@
-import App from "./App.svelte";
+import Index from "./pages/Index.svelte";
 
-const app = new App({
-    target: document.getElementById("root") as HTMLElement,
-});
+if (location.pathname === "/") {
+    new Index({
+        target: document.getElementById("root") as HTMLElement,
+    });
+} else {
+    location.replace("/");
+}
 
-export default app;
+export {};

@@ -1,6 +1,6 @@
 <script lang="ts">
-    import Button from "./components/Button.svelte";
-    import SegDisp from "./components/SegmentedDisplay.svelte";
+    import Button from "../components/Button.svelte";
+    import SegDisp from "../components/SegmentedDisplay.svelte";
     import { fly } from "svelte/transition";
     let windowHeight: number;
     let fileform: HTMLInputElement | null = null;
