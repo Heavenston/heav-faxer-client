@@ -6,6 +6,7 @@
     let fileform: HTMLInputElement | null = null;
     let files = "";
     let uploadState: null | number = null;
+    let finalCode: null | string = null;
 </script>
 
 <svelte:window bind:innerHeight={windowHeight} />
@@ -19,8 +20,10 @@
         bind:this={fileform}
         bind:value={files}
     />
-    <div class="pt-20">
-        <div class="relative mx-8 rounded-t-lg h-8 bg-gray-900 shadow-inner">
+    <div class="pt-14 relative">
+        <div
+            class="relative mx-8 rounded-t-lg h-8 bg-gray-900 shadow-inner z-0"
+        >
             {#if files !== ""}
                 {#key files}
                     <div
@@ -48,7 +51,7 @@
                 {/key}
             {/if}
         </div>
-        <div class="px-5 py-3 bg-gray-700 shadow-xl rounded">
+        <div class="px-5 py-3 bg-gray-700 shadow-xl rounded relative">
             <div class="bg-gray-800 rounded w-full px-3 py-1">
                 <SegDisp
                     shape="XXXXXXXXXXXXXXXXXXXXXX"
@@ -67,9 +70,10 @@
                     on:click={() => {
                         uploadState = 0;
                         let i = setInterval(() => {
-                            if (uploadState != null) uploadState += 1;
+                            if (uploadState != null) uploadState += 2;
                             if (uploadState && uploadState >= 100) {
                                 clearInterval(i);
+                                finalCode = "BONJOUR";
                             }
                         }, 100);
                     }}>Upload</Button
@@ -83,6 +87,26 @@
                 >
                     Select file
                 </Button>
+            </div>
+        </div>
+        <div
+            class="absolute inset-x-12 bottom-0 h-9 transform translate-y-full overflow-hidden {finalCode ==
+            null
+                ? 'invisible'
+                : ''}"
+        >
+            <div
+                class="
+                absolute bottom-0 inset-0 rounded-b transform-gpu bg-white
+                transition-transform duration-200 ease-in-out text-black
+                flex justify-center items-center
+                {finalCode ==
+                null
+                    ? '-translate-y-full'
+                    : ''}
+                "
+            >
+                {window.location.protocol}://{window.location.host}/{finalCode}
             </div>
         </div>
     </div>
