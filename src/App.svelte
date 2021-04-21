@@ -31,10 +31,15 @@
                                 duration: 500,
                             }}
                             class="bg-white text-black rounded-sm
-                            transition-transform transform ease-in-out duration-300
+                            transition-transform transform-gpu ease-linear duration-100
                             select-none font-semibold break-words
                             h-80 p-2 px-3 relative -bottom-40
                             "
+                            style={uploadState !== null
+                                ? `--tw-translate-y: calc(${
+                                      uploadState / 100
+                                  } * 10rem);`
+                                : ``}
                         >
                             Selected file: {files.substr(12)}
                         </div>
@@ -51,7 +56,7 @@
                     ? "Press upload"
                     : `${uploadState < 100 ? "0" : ""}${
                           uploadState < 10 ? "0" : ""
-                      }${uploadState}%`}
+                      }${Math.trunc(uploadState)}%`}
             />
         </div>
         <div class="pt-7 flex">
@@ -59,6 +64,12 @@
                 disabled={files == "" || uploadState !== null}
                 on:click={() => {
                     uploadState = 0;
+                    let i = setInterval(() => {
+                        if (uploadState != null) uploadState += 1;
+                        if (uploadState && uploadState >= 100) {
+                            clearInterval(i);
+                        }
+                    }, 100);
                 }}>Upload</Button
             >
             <div class="flex-grow" />
