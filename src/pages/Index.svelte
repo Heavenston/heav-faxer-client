@@ -51,7 +51,9 @@
                     "Content-Disposition",
                     `attachment; filename="${file.name}"`
                 );
-                ajax.send(file.stream());
+                file.arrayBuffer().then(b => {
+                    ajax.send(b);
+                });
             });
     }
 </script>
