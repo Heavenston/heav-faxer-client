@@ -8,33 +8,51 @@
     let uploadState: null | number = null;
     let finalCode: null | string = null;
     function startFileUpload() {
-        finalCode = null;
         if (!fileform || !fileform.files) return;
-        var formdata = new FormData();
         let file = fileform.files[0];
-        formdata.append("file", file, file.name);
-        var ajax = new XMLHttpRequest();
-        uploadState = 0;
-        ajax.upload.addEventListener(
-            "progress",
-            event => {
-                uploadState = (event.loaded / event.total) * 100;
-            },
-            false
-        );
-        ajax.addEventListener(
-            "load",
-            () => {
-                files = "";
-                uploadState = null;
-                finalCode = JSON.parse(ajax.response).files.file;
-            },
-            false
-        );
-        ajax.addEventListener("error", () => {}, false);
-        ajax.addEventListener("abort", () => {}, false);
-        ajax.open("POST", "https://api.faxer.heav.fr/upload");
-        ajax.send(formdata);
+        fetch(
+            `https://api.faxer.heav.fr/uploadUrl?filename=${encodeURIComponent(
+                file.name
+            )}`,
+            { method: "GET" }
+        )
+            .then(r => r.json())
+            .then(body => {
+                if (body.type != "success") {
+                    throw "PANIC";
+                }
+                finalCode = null;
+                var ajax = new XMLHttpRequest();
+                uploadState = 0;
+                ajax.upload.addEventListener(
+                    "progress",
+                    event => {
+                        uploadState = (event.loaded / event.total) * 100;
+                    },
+                    false
+                );
+                ajax.addEventListener(
+                    "load",
+                    () => {
+                        files = "";
+                        uploadState = null;
+                        finalCode = body.file_id;
+                    },
+                    false
+                );
+                ajax.addEventListener("error", () => {}, false);
+                ajax.addEventListener("abort", () => {}, false);
+                ajax.open("PUT", body.url);
+                ajax.setRequestHeader(
+                    "Content-Type",
+                    "application/octet-stream"
+                );
+                ajax.setRequestHeader(
+                    "Content-Disposition",
+                    `attachment; filename="${file.name}"`
+                );
+                ajax.send(file.stream());
+            });
     }
 </script>
 
