@@ -1,23 +1,23 @@
 <script lang="ts">
     export let disabled: boolean = false;
+    export let maxHeight: number = 1;
 
     let isHover = false;
     $: isHover = disabled ? false : isHover;
     let isPress = false;
 
-    let translateSize = "-translate-y-2";
-    $: translateSize = disabled
-        ? "-translate-y-0"
+    $: currentHeight = disabled
+        ? 0
         : isHover
         ? isPress && isHover
-            ? "-translate-y-0"
-            : "-translate-y-0.5"
-        : "-translate-y-1";
+            ? 0
+            : maxHeight / 2
+        : maxHeight;
 </script>
 
 <button
     {disabled}
-    class="bg-gray-900 rounded focus:outline-none shadow-sm {disabled
+    class="bg-gray-900 rounded focus:outline-none -translate-y-1 shadow-sm {disabled
         ? 'cursor-default'
         : 'cursor-pointer'}"
     on:click
@@ -35,7 +35,9 @@
     }}
 >
     <div
-        class="px-4 py-1 transform-gpu {translateSize} bg-gray-800 rounded transition-transform duration-75 ease-linear"
+        class="px-4 py-1 transform-gpu bg-gray-800 rounded transition-transform
+        duration-75 ease-linear"
+        style="--tw-translate-y: {-0.25 * currentHeight}rem;"
     >
         <slot />
     </div>
