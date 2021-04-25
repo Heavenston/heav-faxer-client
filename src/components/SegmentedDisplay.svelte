@@ -9,7 +9,7 @@
     </div>
     <div class="absolute inset-0 font-semibold">
         {#each content.split(" ") as word, i}{#if i != 0}<span
-                    class="inline-block w-cw h-1"
-                />{/if}{word}{/each}
+                    class="inline-block w-cw h-1">&nbsp;</span
+                >{/if}{word}{/each}
     </div>
 </span>
