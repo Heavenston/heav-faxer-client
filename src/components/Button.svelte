@@ -11,7 +11,7 @@
         : isHover
         ? isPress && isHover
             ? 0
-            : maxHeight / 2
+            : maxHeight / 1.5
         : maxHeight;
 </script>
 
