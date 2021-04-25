@@ -60,16 +60,21 @@
 
 <svelte:window bind:innerHeight={windowHeight} />
 
+<!-- Center the whole app as well as adding background etc -->
 <div
-    class="absolute inset-0 flex justify-center items-center bg-gray-800 text-white"
+    class="absolute inset-0 flex justify-center
+    items-center bg-gray-800 text-white text-xl"
 >
+    <!-- Hidden file input -->
     <input
         type="file"
         class="cantseetheinput"
         bind:this={fileform}
         bind:value={files}
     />
+    <!-- Container for the main frame as well as contained papers -->
     <div class="pt-14 relative">
+        <!-- Top upload paper -->
         <div
             class="relative mx-8 rounded-t-lg h-8 bg-gray-900 shadow-inner z-0"
         >
@@ -105,7 +110,9 @@
                 {/key}
             {/if}
         </div>
+        <!-- Main frame -->
         <div class="px-5 py-3 bg-gray-700 shadow-xl rounded relative">
+            <!-- Display container -->
             <div class="bg-gray-800 rounded w-full px-3 py-1">
                 <SegDisp
                     shape="XXXXXXXXXXXXXXXXXXXXXX"
@@ -118,24 +125,30 @@
                           }${Math.trunc(uploadState)}%`}
                 />
             </div>
+            <!-- Buttons container -->
             <div class="pt-7 flex">
-                <Button
-                    disabled={files == "" || uploadState !== null}
-                    on:click={() => {
-                        startFileUpload();
-                    }}>Upload</Button
-                >
+                <div>
+                    <Button
+                        disabled={files == "" || uploadState !== null}
+                        on:click={() => {
+                            startFileUpload();
+                        }}>Upload</Button
+                    >
+                </div>
                 <div class="flex-grow" />
-                <Button
-                    disabled={uploadState !== null}
-                    on:click={() => {
-                        fileform?.click();
-                    }}
-                >
-                    Select file
-                </Button>
+                <div>
+                    <Button
+                        disabled={uploadState !== null}
+                        on:click={() => {
+                            fileform?.click();
+                        }}
+                    >
+                        Select file
+                    </Button>
+                </div>
             </div>
         </div>
+        <!-- Bottom uploaded url paper -->
         <div
             class="absolute inset-x-12 bottom-0 h-9 transform translate-y-full overflow-hidden {finalCode ==
             null
