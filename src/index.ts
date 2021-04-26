@@ -1,3 +1,4 @@
+import Download from "./pages/Download.svelte";
 import Index from "./pages/Index.svelte";
 import type { SvelteComponent } from "svelte";
 
@@ -7,10 +8,10 @@ const pages = {
         new Index({
             target: document.getElementById("root") as HTMLElement,
         }),
-    download: () => {
-        location.href = "http://files.faxer.heav.fr/" + location.hash.substr(1);
-        return null;
-    },
+    download: () =>
+        new Download({
+            target: document.getElementById("root") as HTMLElement,
+        }),
 };
 
 let currentElement: SvelteComponent | null = null;
