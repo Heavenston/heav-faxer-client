@@ -1,7 +1,8 @@
 <script lang="ts">
     import Button from "../components/Button.svelte";
+    import InputPaper from "../components/InputPaper.svelte";
+    import OutputPaper from "../components/OutputPaper.svelte";
     import SegDisp from "../components/SegmentedDisplay.svelte";
-    import { fly } from "svelte/transition";
     let windowHeight: number;
     let fileform: HTMLInputElement | null = null;
     let files: string = "";
@@ -75,41 +76,7 @@
     <!-- Container for the main frame as well as contained papers -->
     <div class="pt-14 relative">
         <!-- Top upload paper -->
-        <div
-            class="relative mx-8 rounded-t-lg h-8 bg-gray-900 shadow-inner z-0"
-        >
-            {#if files !== ""}
-                {#key files}
-                    <div
-                        class="absolute inset-x-4 bottom-0 overflow-hidden duration-300"
-                    >
-                        <div
-                            in:fly={{
-                                y: -windowHeight / 2,
-                                duration: 500,
-                            }}
-                            out:fly={{
-                                y: 500,
-                                opacity: 1,
-                                duration: 3000,
-                            }}
-                            class="bg-white text-black rounded-sm
-                            transition-transform transform-gpu ease-linear duration-100
-                            select-none font-semibold break-words
-                            h-80 p-2 px-3 relative -bottom-52
-                            "
-                            style={uploadState !== null
-                                ? `--tw-translate-y: calc(${
-                                      uploadState / 100
-                                  } * 7rem);`
-                                : ``}
-                        >
-                            Selected file: {files.substr(12)}
-                        </div>
-                    </div>
-                {/key}
-            {/if}
-        </div>
+        <InputPaper text={files.substr(12)} />
         <!-- Main frame -->
         <div class="px-5 py-3 bg-gray-700 shadow-xl rounded relative">
             <!-- Display container -->
@@ -149,26 +116,11 @@
             </div>
         </div>
         <!-- Bottom uploaded url paper -->
-        <div
-            class="absolute inset-x-12 bottom-0 h-9 transform translate-y-full overflow-hidden {finalCode ==
-            null
-                ? 'invisible'
-                : ''}"
-        >
-            <div
-                class="
-                absolute bottom-0 inset-0 rounded-b transform-gpu bg-white
-                transition-transform duration-200 ease-in-out text-black
-                flex justify-center items-center
-                {finalCode ==
-                null
-                    ? '-translate-y-full'
-                    : ''}
-                "
-            >
-                {window.location.protocol}//{window.location.host}/#{finalCode}
-            </div>
-        </div>
+        <OutputPaper
+            text={finalCode
+                ? `${window.location.protocol}//${window.location.host}/#${finalCode}`
+                : null}
+        />
     </div>
 </div>
 
