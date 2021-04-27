@@ -1,5 +1,7 @@
 <script lang="ts">
     export let text: string | null = null;
+    let textContainer: HTMLDivElement;
+    let copiedText: boolean = false;
 </script>
 
 <div
@@ -18,7 +20,20 @@
         ? '-translate-y-full'
         : ''}
         "
+        on:click={() => {
+            const sel = window.getSelection();
+            sel && sel.removeAllRanges();
+
+            const range = document.createRange();
+            range.selectNodeContents(textContainer);
+            sel && sel.addRange(range);
+            document.execCommand("copy");
+            sel && sel.removeRange(range);
+
+            copiedText = true;
+            setTimeout(() => {copiedText = false}, 2000);
+        }}
     >
-        {text}
+        <p bind:this={textContainer}>{copiedText ? "Copied !" : text}</p>
     </div>
 </div>

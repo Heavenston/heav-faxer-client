@@ -3,7 +3,7 @@
     import InputPaper from "./components/InputPaper.svelte";
     import OutputPaper from "./components/OutputPaper.svelte";
     import SegDisp from "./components/SegmentedDisplay.svelte";
-    import download from "./utils/download"
+    import download from "./utils/download";
     import hash from "./utils/hash";
     
     $: downloadHash = $hash.length === 7 ? $hash : null;
