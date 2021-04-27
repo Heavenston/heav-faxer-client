@@ -4,11 +4,12 @@
 
     let isHover = false;
     let isPress = false;
+    let isFocus = false;
 
     let currentHeight: number;
     $: if (disabled || isPress)
         currentHeight = 0;
-    else if (isHover)
+    else if ((isHover && window.matchMedia("(hover: hover)").matches) || isFocus)
         currentHeight = maxHeight / 1.5
     else
         currentHeight = maxHeight
@@ -16,28 +17,28 @@
 
 <button
     {disabled}
-    class="bg-gray-900 rounded focus:outline-none -translate-y-1 shadow-sm {disabled
+    class="focus:outline-none outline-none -translate-y-1 shadow-sm
+    transition-all duration-75 ease-linear rounded
+    {disabled
         ? 'cursor-default'
         : 'cursor-pointer'}"
+    style="padding-top: {0.25 * maxHeight}rem;"
+    
     on:click
-    on:mouseover={() => {
-        isHover = true;
-    }}
-    on:mouseout={() => {
-        isHover = false;
-    }}
-    on:mousedown={() => {
-        isPress = true;
-    }}
-    on:mouseup={() => {
-        isPress = false;
-    }}
+    on:mouseover={() => {isHover = true}}
+    on:mouseout={() => {isHover = false}}
+    on:mousedown={() => {isPress = true}}
+    on:mouseup={() => {isPress = false}}
+    on:focus={() => {isFocus = true}}
+    on:blur={() => {isFocus = false}}
 >
-    <div
-        class="px-4 py-1 transform-gpu bg-gray-800 rounded transition-transform
-        duration-75 ease-linear"
-        style="--tw-translate-y: {-0.25 * currentHeight}rem;"
-    >
-        <slot />
+    <div class="bg-gray-900 rounded">
+        <div
+            class="px-4 py-1 transform-gpu bg-gray-800
+            rounded transition-transform duration-75 ease-linear"
+            style="--tw-translate-y: {-0.25 * currentHeight}rem;"
+        >
+            <slot />
+        </div>
     </div>
 </button>

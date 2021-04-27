@@ -120,6 +120,7 @@
                 <div>
                     <label>
                         <input
+                            tabindex="-1"
                             type="file"
                             class="cantseetheinput"
                             bind:this={fileform}
