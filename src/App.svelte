@@ -3,13 +3,16 @@
     import InputPaper from "./components/InputPaper.svelte";
     import OutputPaper from "./components/OutputPaper.svelte";
     import SegDisp from "./components/SegmentedDisplay.svelte";
+
     import download from "./utils/download";
     import hash from "./utils/hash";
     
     $: downloadHash = $hash.length === 7 ? $hash : null;
     let downloadError = false;
+    let charaterWidth: number = 6;
 
-    let windowHeight: number;
+    let windowHeight: number = window.innerHeight;
+    let windowWidth: number = window.innerWidth;
     let fileform: HTMLInputElement | null = null;
     let files: string = "";
     let uploadState: null | number = null;
@@ -74,7 +77,7 @@
     }
 </script>
 
-<svelte:window bind:innerHeight={windowHeight} />
+<svelte:window bind:innerHeight={windowHeight} bind:innerWidth={windowWidth} />
 
 <!-- Center the whole app as well as adding background etc -->
 <div
@@ -90,14 +93,26 @@
             <!-- Display container -->
             <div class="bg-gray-800 rounded w-full px-3 py-1">
                 <SegDisp
-                    shape="XXXXXXXXXXXXXXXXXXXXXX"
+                    bind:charaterWidth
+                    shape={
+                        Array(
+                            Math.min(
+                                Math.floor(
+                                    ((windowWidth - (16 * 4)) / charaterWidth)
+                                    - 1
+                                ),
+                                22
+                            )
+                        )
+                        .fill('X').join('')
+                    }
                     content={
                         downloadHash != null
                         ? "Downloading a file"
                         : downloadError
-                        ? "This file doesnt exist"
+                        ? "This file does not exist"
                         : files == ""
-                        ? "Select a file"
+                        ? "Please select a file or use a download url"
                         : uploadState == null
                         ? "Press upload"
                         : `${uploadState < 100 ? "0" : ""}${
