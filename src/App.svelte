@@ -67,7 +67,7 @@
 
     $: if ($hash && $hash.length === 7) {
         console.log(`Downloading file ${$hash}`);
-        download(`http://files.faxer.heav.fr/${$hash}`, (ok) => {
+        download(`https://files.faxer.heav.fr/${$hash}`, (ok) => {
             downloadError = !ok;
             $hash = "";
         });
