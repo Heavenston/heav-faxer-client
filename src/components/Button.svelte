@@ -1,18 +1,17 @@
 <script lang="ts">
     export let disabled: boolean = false;
-    export let maxHeight: number = 1;
+    export let maxHeight: number = 1.2;
 
     let isHover = false;
-    $: isHover = disabled ? false : isHover;
     let isPress = false;
 
-    $: currentHeight = disabled
-        ? 0
-        : isHover
-        ? isPress && isHover
-            ? 0
-            : maxHeight / 1.5
-        : maxHeight;
+    let currentHeight: number;
+    $: if (disabled || isPress)
+        currentHeight = 0;
+    else if (isHover)
+        currentHeight = maxHeight / 1.5
+    else
+        currentHeight = maxHeight
 </script>
 
 <button
