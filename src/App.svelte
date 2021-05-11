@@ -112,7 +112,7 @@
                         : downloadError
                         ? "This file does not exist"
                         : files == ""
-                        ? "Please select a file or use a download url"
+                        ? "Please select a file"
                         : uploadState == null
                         ? "Press upload"
                         : `${uploadState < 100 ? "0" : ""}${
